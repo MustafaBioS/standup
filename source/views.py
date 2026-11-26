@@ -43,9 +43,10 @@ class RenderTemplate:
                     "block_id": "channel_inp",
                     "label": {"type": "plain_text", "text": "Staff Channel"},
                     "element": {
-                        "type": "channels_select",
+                        "type": "conversations_select",
                         "action_id": "channel_select",
                         "placeholder": { "type": "plain_text", "text": "Select Channel" },
+                        "filter": {"include": ["public", "private"]},
                     }
                 }
             ]

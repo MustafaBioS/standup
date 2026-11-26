@@ -20,6 +20,7 @@ render_template = RenderTemplate(app.client)
 
 daily_message = ""
 bi_hourly_message = ""
+channel = ""
 
 @app.command("/setup")
 def setup(ack, body, client, logger):
@@ -34,10 +35,10 @@ def setup(ack, body, client, logger):
 def handle_submission(ack, body, view, client, logger):
     ack()
     try:
-        print(f"Values: {view["state"]["values"]}")
-        print(f"Daily Input: {view['state']['values']['daily_inp']['daily_inp']['value']}")
-        print(f"Bi-Hourly Input: {view['state']['values']['bi_hourly_inp']['bi_hourly_inp']['value']}")
-        print(f"Channel: {view['state']['values']['channel_inp']['channel_select']['selected_channel']}")
+        print(f"{view["state"]["values"]}")
+        daily_message = view['state']['values']['daily_inp']['daily_inp']['value']
+        bi_hourly_message = view['state']['values']['bi_hourly_inp']['bi_hourly_inp']['value']
+        channel = view['state']['values']['channel_inp']['channel_select']['selected_conversation']
     except Exception as e:
         logger.error(f"Error handling view submission: {e}")
 
