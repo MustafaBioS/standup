@@ -35,10 +35,13 @@ def setup(ack, body, client, logger):
 def handle_submission(ack, body, view, client, logger):
     ack()
     try:
-        print(f"{view["state"]["values"]}")
+        user_id = body["user"]["id"]
+
         daily_message = view['state']['values']['daily_inp']['daily_inp']['value']
         bi_hourly_message = view['state']['values']['bi_hourly_inp']['bi_hourly_inp']['value']
         channel = view['state']['values']['channel_inp']['channel_select']['selected_conversation']
+        time = view['state']['values']['time_inp']['time_picker']['selected_time']
+        tz = client.users_info(user=user_id)["user"]["tz"]
     except Exception as e:
         logger.error(f"Error handling view submission: {e}")
 

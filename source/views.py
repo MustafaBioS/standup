@@ -48,6 +48,26 @@ class RenderTemplate:
                         "placeholder": { "type": "plain_text", "text": "Select Channel" },
                         "filter": {"include": ["public", "private"]},
                     }
+                },
+                {
+                  "type": "input",
+                  "block_id": "time_inp",
+
+                  "element": {
+                      "type": "timepicker",
+                      "initial_time": "00:00",
+                      "placeholder": {
+                          "type": "plain_text",
+                          "text": "Select Time",
+                          "emoji": True,
+                      },
+                      "action_id": "time_picker"
+                  },
+                  "label": {
+                      "type": "plain_text",
+                      "text": "Select Time To Send Your Daily Message",
+                      "emoji": True,
+                  }
                 }
             ]
         }
