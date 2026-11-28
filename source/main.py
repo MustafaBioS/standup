@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from views import RenderTemplate
-
+from db import Database
 
 load_dotenv()
 
@@ -17,10 +17,7 @@ app = App(
 )
 
 render_template = RenderTemplate(app.client)
-
-daily_message = ""
-bi_hourly_message = ""
-channel = ""
+db = Database()
 
 @app.command("/setup")
 def setup(ack, body, client, logger):
@@ -42,6 +39,11 @@ def handle_submission(ack, body, view, client, logger):
         channel = view['state']['values']['channel_inp']['channel_select']['selected_conversation']
         time = view['state']['values']['time_inp']['time_picker']['selected_time']
         tz = client.users_info(user=user_id)["user"]["tz"]
+
+        db.add_standups(daily_message, bi_hourly_message, channel, time, tz)
+
+        print(db.list_standups())
+
     except Exception as e:
         logger.error(f"Error handling view submission: {e}")
 
